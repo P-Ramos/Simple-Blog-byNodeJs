@@ -1,3 +1,3 @@
 # Simple-Blog-byNodeJs
  Exemplo de um simples blog criado com a tecnologia Node.js
- Esse modelo é gratuito, é de livre uso para você que pretende criar um simple blog. Tenha um bom aproveitamento!
+ O modelo ainda se encontra em desenvolvimento, portanto, o respetivo repositório não poderá lhe agregar em nada, ainda.
