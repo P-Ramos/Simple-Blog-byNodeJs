@@ -1,3 +1,2 @@
-# Simple-Blog-byNodeJs
- Exemplo de um simples blog criado com a tecnologia Node.js
- O modelo ainda se encontra em desenvolvimento, portanto, o respetivo repositório não poderá lhe agregar em nada, ainda.
+# Exemplo de um simples blog criado com a tecnologia Node.js
+Estou escrevendo um livro onde ensino a desenvolver sites com a tecnologia Node.js, por isso, disponibilizo este modelo, onde no entanto, ainda se encontra em desenvolvimento, portanto, o respetivo repositório não poderá lhe agregar em nada, por enquanto.
