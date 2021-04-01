@@ -11,13 +11,6 @@ const dbLoader = 'Protechoper2!'
     const Express = require('express')
     const app = Express()
 
-    // MYSQL conecting            ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
-    const dbSql = require('sequelize');
-    const dbsql = new dbSql('SISTEMADEPOSTAGENS', 'root', dbLoader, {
-        host:'localhost',
-        dialect:'mysql'
-    })
-
     // Template engine handlebars ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     const handlebars =  require('express-handlebars');
     app.engine('handlebars', handlebars({defaultLayout: 'main'}))
@@ -25,13 +18,7 @@ const dbLoader = 'Protechoper2!'
 
     // Body-parser                ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     const bodyParser = require('body-parser');
-    
-    // app.use(bodyParser.urlencoded({ extendend: false}))
-    // app.use(bodyParser.json())
-    // app.use(bodyParser.urlencoded({ extended: false }))
-    // parse application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: false }))
-
     // parse application/json
     app.use(bodyParser.json())
 
@@ -42,26 +29,28 @@ const dbLoader = 'Protechoper2!'
     app.get('/cad', function(req, res){
         res.render('form.handlebars')
     })
+    // Posts                      ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+    app.post('/add', function(req, res){
+        res.send('Título: ' +req.body.titulo+ '<br/>Sub-título: ' +req.body.s_titulo+ '<br/>Conteudo:<br/>' +req.body.conteudo)
+    }) 
 
 
 
 
-// ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
-// ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
-// ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
-// ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
-// Verificação de conecção ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+
+// «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+// module.exports
+    module.exports = {
+        dbLoader
+    }
+// «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+// «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+// «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+// Verificação de conecção        ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     
     // Express
     app.listen(thisPort, () => {
         console.log('Ligação da aplicação verificada na porta: ', thisPort);
-    })
-
-    // MYSQL
-    dbsql.authenticate().then(()=>{
-        console.log('Sucesso ao se conectar com base de dados!')
-    }).catch((err)=>{
-        console.log('Erro ao se conectar com base de dados: ', err);
     })
 
     // Server
