@@ -1,10 +1,8 @@
 const http   = require('http');
-const thServ = http.createServer((req, res) => {
-    console.log('There was a moviment...')
-    res.end();
-})
-const thisPort = 40000;
-const dbLoader = 'Protechoper2!'
+const thServ = http.createServer()
+const thisPort = 3000;
+const Post = require('./models/Post')
+const Handlebars = require('handlebars')
 
 // config                         ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     // Express                    ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
@@ -24,14 +22,30 @@ const dbLoader = 'Protechoper2!'
 
     // Rotas                      ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     app.get('/', function(req, res){
-        res.send('Home')
+        Post.all( './views/layout/home', function(req, res, next){
+            next()
+        }).then(function(posts){
+            // res.render('home', {nome: 'Prota', snome: 'Ramos'})
+            res.render('home', {posts: posts})
+        })
+        res.end()
     })
+
     app.get('/cad', function(req, res){
         res.render('form.handlebars')
-    })
+    })//961055256 - Walker
     // Posts                      ««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
     app.post('/add', function(req, res){
-        res.send('Título: ' +req.body.titulo+ '<br/>Sub-título: ' +req.body.s_titulo+ '<br/>Conteudo:<br/>' +req.body.conteudo)
+        Post.create({
+            titulo: req.body.titulo,
+            s_titulo: req.body.s_titulo,
+            conteudo: req.body.conteudo
+        })
+        .then(function(){
+            res.redirect('/')
+        }).catch(function(erro){
+            res.send('Erro ao gerar a postagem: '+ erro)
+        })
     }) 
 
 
@@ -40,9 +54,6 @@ const dbLoader = 'Protechoper2!'
 
 // «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
 // module.exports
-    module.exports = {
-        dbLoader
-    }
 // «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
 // «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
 // «««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
@@ -56,4 +67,4 @@ const dbLoader = 'Protechoper2!'
     // Server
     thServ.listen(thisPort, 'localhost',(err) => {
         if(err){console.log(err)}else console.log('Server connected successfully!')
-    })
+    }) 
